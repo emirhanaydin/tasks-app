@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "533543697666",
+    "project_id": "tasks-app-fdd36",
+    "storage_bucket": "tasks-app-fdd36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533543697666:android:69353eb841e36a8595961b",
+        "android_client_info": {
+          "package_name": "com.example.tasks_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "533543697666-96luv18ea0nsssuocm1cbjn5lo2j7c7p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSbz-Lyis1EY9i_VimqOs5g4QltFzmLfw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "533543697666-96luv18ea0nsssuocm1cbjn5lo2j7c7p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
