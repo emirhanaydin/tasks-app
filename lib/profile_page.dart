@@ -7,12 +7,12 @@ import 'sign_in.dart';
 
 final _auth = FirebaseAuth.instance;
 
-class HomePage extends StatefulWidget {
+class ProfilePage extends StatefulWidget {
   @override
-  State createState() => _HomePageState();
+  State createState() => _ProfilePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final user = _auth.currentUser;
@@ -29,7 +29,10 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(bottom: 20),
                 child: Image.network(user.photoURL),
               ),
-              Text('Name', style: TextStyle(color: Colors.grey[600]),),
+              Text(
+                'Name',
+                style: TextStyle(color: Colors.grey[600]),
+              ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: Text(
@@ -37,7 +40,10 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              Text('Email', style: TextStyle(color: Colors.grey[600]),),
+              Text(
+                'Email',
+                style: TextStyle(color: Colors.grey[600]),
+              ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 60),
                 child: Text(
@@ -62,7 +68,6 @@ class _HomePageState extends State<HomePage> {
                 builder: (context) {
                   return LoginPage();
                 },
-                maintainState: false,
               ),
             );
           });

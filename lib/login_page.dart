@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tasks_app/home_page.dart';
 import 'package:tasks_app/sign_in.dart';
+import 'package:tasks_app/tasks_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -46,9 +46,8 @@ class _LoginPageState extends State<LoginPage> {
           navigator.push(
             MaterialPageRoute(
               builder: (context) {
-                return HomePage();
+                return TasksPage();
               },
-              maintainState: false,
             ),
           );
         });
