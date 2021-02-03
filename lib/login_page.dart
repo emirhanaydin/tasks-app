@@ -39,15 +39,18 @@ class _LoginPageState extends State<LoginPage> {
       splashColor: Colors.grey,
       onPressed: () {
         signInWithGoogle().then((result) {
-          if (result != null) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return HomePage();
-                },
-              ),
-            );
-          }
+          if (result == null) return null;
+
+          final navigator = Navigator.of(context);
+
+          navigator.push(
+            MaterialPageRoute(
+              builder: (context) {
+                return HomePage();
+              },
+              maintainState: false,
+            ),
+          );
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
