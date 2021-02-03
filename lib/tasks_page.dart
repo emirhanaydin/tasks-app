@@ -1,13 +1,8 @@
-import 'dart:math';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tasks_app/profile_page.dart';
-
-final _dbRef = FirebaseDatabase.instance.reference().child('tasks');
-final _auth = FirebaseAuth.instance;
+import 'package:tasks_app/task_adder.dart';
 
 class TasksPage extends StatefulWidget {
   @override
@@ -15,14 +10,6 @@ class TasksPage extends StatefulWidget {
 }
 
 class _TasksPageState extends State<TasksPage> {
-  User _user;
-  DatabaseReference _dbUserRef;
-
-  _TasksPageState() {
-    _user = _auth.currentUser;
-    _dbUserRef = _dbRef.child(_user.uid);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,16 +19,31 @@ class _TasksPageState extends State<TasksPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                _profileButton(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 25),
+                  child: _profileButton(),
+                )
               ],
             ),
-            Expanded(child: Text('List placeholder')),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                _addTaskButton(),
-              ],
-            )
+            Expanded(
+                child: ListView.builder(
+              itemBuilder: (context, index) {
+                return Container(
+                  height: 50,
+                  color: Colors.lightBlue,
+                  child: Center(
+                    child: Text('Entry'),
+                  ),
+                );
+              },
+              padding: const EdgeInsets.all(8),
+              itemCount: 10,
+            )),
+            Row(children: [
+              TaskAdder(
+                onTaskAdded: (task) {},
+              )
+            ]),
           ],
         ),
       ),
@@ -54,14 +56,6 @@ class _TasksPageState extends State<TasksPage> {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => ProfilePage()),
           );
-        },
-      );
-
-  Widget _addTaskButton() => IconButton(
-        icon: Icon(Icons.add),
-        onPressed: () {
-          final ref = _dbUserRef.push();
-          ref.set('${Random().nextInt(1000)}');
         },
       );
 }
