@@ -1,33 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tasks_app/task.dart';
-
-final _database = FirebaseDatabase.instance;
-final _auth = FirebaseAuth.instance;
+import 'package:tasks_app/models/task.dart';
 
 typedef TaskAdded = void Function(Task task);
 
-class TaskAdder extends StatefulWidget {
+class TaskAdder extends StatelessWidget {
   final TaskAdded onTaskAdded;
 
   TaskAdder({Key key, this.onTaskAdded}) : super(key: key);
 
-  @override
-  State createState() => _TaskAdderState();
-}
-
-class _TaskAdderState extends State<TaskAdder> {
   final _formKey = GlobalKey<FormState>();
   final _descController = TextEditingController();
-  DatabaseReference _dbRef;
-  User _dbUser;
-
-  _TaskAdderState() {
-    _dbUser = _auth.currentUser;
-    _dbRef = _database.reference().child('tasks').child(_dbUser.uid);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,19 +38,11 @@ class _TaskAdderState extends State<TaskAdder> {
                   color: Colors.lightBlue,
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
-                      final task = new Task(_descController.text);
+                      final task = new Task(description: _descController.text);
 
-                      _addTask(task).then((_) {
-                        Scaffold.of(context).showSnackBar(
-                          SnackBar(content: Text('Task added')),
-                        );
-                        _descController.clear();
+                      _descController.clear();
 
-                        widget.onTaskAdded(task);
-                      }).catchError((onError) {
-                        Scaffold.of(context)
-                            .showSnackBar(SnackBar(content: Text(onError)));
-                      });
+                      onTaskAdded(task);
                     }
                   },
                   child: Text('Add')),
@@ -78,14 +53,7 @@ class _TaskAdderState extends State<TaskAdder> {
     );
   }
 
-  @override
   void dispose() {
-    super.dispose();
-
     _descController.dispose();
-  }
-
-  Future<Task> _addTask(Task task) {
-    return _dbRef.push().set(task.toJson());
   }
 }
